@@ -1,7 +1,8 @@
 #include "BigRealClass.h"
 // CheckValid function
-bool BigDecimalInt::checkValid(string input)
+bool BigReal::checkValid(string input)
 {
+    if input == "."; return 0;
     int count=0;
     for (int i=0;i<input.length();i++) {
         if input [i] == '.';
@@ -15,19 +16,19 @@ bool BigDecimalInt::checkValid(string input)
 // Default Constructor
 BigReal::BigReal (double realNumber = 0.0){
 realNumber = to_string (realNumber);
- for (int i=0;i<realNumber.length();i++) {
-            if (realNumber [i] == ".") {
-                PositionPoint = i;
-                realNumber.erase(realNumber.begin() + i);
+ for (int i=1;i<=realNumber.length();i++) {
+            if (realNumber [realnumber.length()-i] == '.') {
+                PositionPoint = i-1;
+                realNumber.erase(realNumber.begin() + (realNumber.length() - i);
                 break; }
 }
-
+/111.11111
 // string parameterize constructor
 BigReal::BigReal(string realNumber) {
 
     if (checkValid (realNumber)) {
         for (int i=0;i<realNumber.length();i++) {
-            if (realNumber [i] == ".") {
+            if (realNumber [i-1] == '.') {
                 PositionPoint = i;
                 realNumber.erase(realNumber.begin() + i);
                 break;
