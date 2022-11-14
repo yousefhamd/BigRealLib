@@ -1,2 +1,4 @@
 ﻿  BigReal.cpp
+c:\users\redline\source\repos\bigreallib\a2_task1_s15,16_20200635_20210468_20211118\a2_task1_s15,16_20200635_20210468_20211118\bigreal.cpp(32): warning C4018: '<': signed/unsigned mismatch
+c:\users\redline\source\repos\bigreallib\a2_task1_s15,16_20200635_20210468_20211118\a2_task1_s15,16_20200635_20210468_20211118\bigreal.cpp(57): warning C4018: '<=': signed/unsigned mismatch
   A2_Task1_S15,16_20200635_20210468_20211118.vcxproj -> C:\Users\REDLINE\source\repos\BigRealLib\A2_Task1_S15,16_20200635_20210468_20211118\Debug\A2_Task1_S15,16_20200635_20210468_20211118.exe

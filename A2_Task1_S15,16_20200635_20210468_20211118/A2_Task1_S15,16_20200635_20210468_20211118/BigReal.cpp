@@ -1,73 +1,122 @@
 #include "BigReal.h"
 
-int BigReal::mk_sm_sz(string& another) {
-	bool is_int = true;
-	string num1_int = "", num1_frac = "";
-	string num2_int = "", num2_frac = "";
-	for (int i = 0; i < big_real.length(); i++) {
-		if (big_real[i] != '.' && is_int)
-			num1_int += big_real[i];
-		else if (!is_int)
-			num1_frac += big_real[i];
-		else
-			is_int = false;
+void BigReal::mk_sm_sz(BigReal& another) {
+	string res_num1 = num.getNumber(), res_num2 = another.num.getNumber();
+
+	if (PositionPoint > another.PositionPoint)
+		res_num2 += string(PositionPoint - another.PositionPoint, '0');
+	else if (another.PositionPoint > PositionPoint)
+		res_num1 += string(another.PositionPoint - PositionPoint, '0');
+
+	if (num.sign() == 1)
+		res_num1 = '+' + res_num1;
+	else
+		res_num1 = '-' + res_num1;
+
+	if (another.num.sign() == 1)
+		res_num2 = '+' + res_num2;
+	else
+		res_num2 = '-' + res_num2;
+
+	num = res_num1;
+	another.num = res_num2;
+}
+
+// CheckValid function
+bool BigReal::checkValid(string input)
+{
+	if (input == ".") return 1;
+	int count = 0;
+	for (int i = 0; i < input.length(); i++) {
+		if (input[i] == '.')
+			count++;
+		if (count > 1)
+			return 0;
+	}
+	return 1;
+}
+
+//// Default Constructor
+//BigReal::BigReal(double realNumber = 0.0) {
+//	realNumber = to_string(realNumber);
+//	for (int i = 1; i <= realNumber.length(); i++) {
+//		if (realNumber[realnumber.length() - i] == '.') {
+//			PositionPoint = i - 1;
+//			realNumber.erase(realNumber.begin() + (realNumber.length() - i)
+//		};
+//		break;
+//	}
+//}
+
+// string parameterize constructor
+BigReal::BigReal(string realNumber) {
+
+	if (checkValid(realNumber)) {
+		for (int i = 1; i <= realNumber.length(); i++) {
+			if (realNumber[realNumber.length() - i] == '.') {
+				PositionPoint = i - 1;
+				realNumber.erase(realNumber.begin() + (realNumber.length() - i));
+				break;
+			}
+		}
+		num = realNumber;
 	}
 
-	is_int = true;
-	for (int i = 0; i < another.length(); i++) {
-		if (another[i] != '.' && is_int)
-			num2_frac += another[i];
-		else if (!is_int)
-			num2_int += another[i];
-		else
-			is_int = false;
+	else cout << "Invalid" << endl;
+}
+
+BigReal::BigReal(BigDecimalInt bigInteger) {
+	num = bigInteger;
+}
+
+// copy constructor
+BigReal::BigReal(const BigReal& other) {
+	num = other.num;
+	PositionPoint = other.PositionPoint;
+}
+
+// Move constructor
+BigReal::BigReal(BigReal&& other) {
+	num = move(other.num);
+	PositionPoint = move(other.PositionPoint);
+}
+
+// Assignment Operator
+BigReal& BigReal::operator= (BigReal& other) {
+	if (this != &other) {
+		num = other.num;
+		PositionPoint = other.PositionPoint;
 	}
+	return *this;
+}
 
-	if (num1_int == "")
-		num1_int = "0";
-
-	if (num1_frac == "")
-		num1_frac = "0";
-
-	if (num2_int == "")
-		num2_int = "0";
-
-	if (num2_frac == "")
-		num2_frac = "0";
-
-	if (num1_frac.length() > num2_frac.length())
-		num2_frac += string(num1_frac.length() - num2_frac.length(), '0');
-	else if (num2_frac.length() > num1_frac.length())
-		num1_frac += string(num2_frac.length() - num1_frac.length(), '0');
-
-	big_real = num1_int + num1_frac;
-	another = num2_int + num2_frac;
-
-	return num1_frac.length();
+// move assignment operator
+BigReal& BigReal::operator= (BigReal&& other) {
+	if (this != &other) {
+		num = move(other.num);
+		PositionPoint = move(other.PositionPoint);
+	}
+	return *this;
 }
 
 BigReal BigReal::operator+ (BigReal& other) {
-	BigReal res_real;
 	BigDecimalInt res_int;
-	int dot_pos = mk_sm_sz(other.big_real);
-	big_decimal_int = BigDecimalInt(big_real);
-	other.big_decimal_int = BigDecimalInt(other.big_real);
-	res_int = big_decimal_int + other.big_decimal_int;
-	res_int.getNumber().insert(res_int.getNumber().end() - dot_pos, '.');
-	big_real.insert(big_real.end() - dot_pos, '.');
-	res_real = BigReal(res_int.getNumber());
-	return res_real;
+	mk_sm_sz(other);
+	res_int = num + other.num;
+	string tmp = "";
+	if (res_int.sign() == 1)
+		tmp = '+' + res_int.getNumber();
+	else
+		tmp = '-' + res_int.getNumber();
+	tmp.insert(tmp.end() - PositionPoint, '.');
+	return BigReal(tmp);
 }
 
 BigReal BigReal::operator- (BigReal& other) {
-	BigReal res_real;
 	BigDecimalInt res_int;
-	int dot_pos = mk_sm_sz(other.big_real);
-	big_decimal_int = BigDecimalInt(big_real);
-	other.big_decimal_int = BigDecimalInt(other.big_real);
-	res_int = big_decimal_int - other.big_decimal_int;
-	res_int.getNumber().insert(res_int.getNumber().end() - dot_pos, '.');
-	big_real.insert(big_real.end() - dot_pos, '.');
-	res_real = BigReal(res_int.getNumber());
-	return res_real;
+	mk_sm_sz(other);
+	res_int = num - other.num;
+	string tmp = res_int.getNumber();
+	tmp.insert(tmp.end() - PositionPoint, '.');
+	return BigReal(tmp);
 }

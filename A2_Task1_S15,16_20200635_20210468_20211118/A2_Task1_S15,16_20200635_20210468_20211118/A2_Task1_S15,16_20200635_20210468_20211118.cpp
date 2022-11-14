@@ -4,6 +4,8 @@
 
 int main()
 {
-	BigReal num;
-    cout << "Hello World!\n";
+	BigReal num1("12324.2343");
+	BigReal num2("-123242365.474342");
+	num1 + num2;
+	return 0;
 }
