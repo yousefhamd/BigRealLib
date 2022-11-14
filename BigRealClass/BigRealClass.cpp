@@ -19,7 +19,7 @@ realNumber = to_string (realNumber);
  for (int i=1;i<=realNumber.length();i++) {
             if (realNumber [realnumber.length()-i] == '.') {
                 PositionPoint = i-1;
-                realNumber.erase(realNumber.begin() + (realNumber.length() - i);
+                realNumber.erase(realNumber.begin() + (realNumber.length() - i)};
                 break; }
 }
 /111.11111
@@ -27,10 +27,10 @@ realNumber = to_string (realNumber);
 BigReal::BigReal(string realNumber) {
 
     if (checkValid (realNumber)) {
-        for (int i=0;i<realNumber.length();i++) {
-            if (realNumber [i-1] == '.') {
-                PositionPoint = i;
-                realNumber.erase(realNumber.begin() + (realNumber.length() - i);
+ for (int i=1;i<=realNumber.length();i++) {
+            if (realNumber [realnumber.length()-i] == '.') {
+                PositionPoint = i-1;
+                realNumber.erase(realNumber.begin() + (realNumber.length() - i));
                 break;
             }
             num = realNumber;
