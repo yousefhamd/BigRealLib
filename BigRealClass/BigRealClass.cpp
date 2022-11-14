@@ -30,7 +30,7 @@ BigReal::BigReal(string realNumber) {
         for (int i=0;i<realNumber.length();i++) {
             if (realNumber [i-1] == '.') {
                 PositionPoint = i;
-                realNumber.erase(realNumber.begin() + i);
+                realNumber.erase(realNumber.begin() + (realNumber.length() - i);
                 break;
             }
             num = realNumber;
