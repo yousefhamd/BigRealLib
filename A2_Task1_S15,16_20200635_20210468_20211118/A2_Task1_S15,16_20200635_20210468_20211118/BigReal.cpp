@@ -60,6 +60,8 @@ BigReal::BigReal(string realNumber) {
 			}
 		}
 		num = realNumber;
+		realNumber.insert(realNumber.end() - PositionPoint, '.');
+		bigReal = realNumber;
 	}
 
 	else cout << "Invalid" << endl;
@@ -139,7 +141,6 @@ bool BigReal:: operator== (BigReal anotherDec)
 char BigReal::Sign() {
 	if (num.sign() == 1) {
 		return '+';
-
 	}
 	else { return '-'; }
 }

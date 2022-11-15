@@ -5,9 +5,9 @@ using namespace std;
 
 class BigReal
 {
-	BigDecimalInt big_decimal_int;
-	void mk_sm_sz(BigReal& another);
+	string bigReal;
 	BigDecimalInt num;
+	void mk_sm_sz(BigReal& another);
 	int PositionPoint = -1;
 	bool checkValid(string input);
 
