@@ -60,6 +60,12 @@ BigReal::BigReal(string realNumber) {
 			}
 		}
 		num = realNumber;
+		for (int i = realNumber.length() - PositionPoint; i < realNumber.length(); i++) {
+			realPart += realNumber[i];
+		}
+		for (int i = 0; i < realNumber.length() - PositionPoint; i++) {
+			intPart += realNumber[i];
+		}
 		realNumber.insert(realNumber.end() - PositionPoint, '.');
 		bigReal = realNumber;
 	}

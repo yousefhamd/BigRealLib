@@ -5,6 +5,7 @@ using namespace std;
 
 class BigReal
 {
+	string realPart = "", intPart = "";
 	string bigReal;
 	BigDecimalInt num;
 	void mk_sm_sz(BigReal& another);
