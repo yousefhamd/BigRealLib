@@ -120,3 +120,38 @@ BigReal BigReal::operator- (BigReal& other) {
 	tmp.insert(tmp.end() - PositionPoint, '.');
 	return BigReal(tmp);
 }
+/*
+ bool BigReal:: operator< (BigReal anotherDec)
+{
+
+}
+
+bool BigReal:: operator> (BigReal anotherDec)
+{
+
+}
+ 
+bool BigReal:: operator== (BigReal anotherDec)
+{
+
+}
+*/
+char BigReal::Sign() {
+	if (num.sign() == 1) {
+		return '+';
+
+	}
+	else { return '-'; }
+}
+
+
+ostream& operator<<(ostream& out, BigReal& b) {
+	out << b.num;
+	return out;
+}
+
+BigReal BigReal:: operator=(BigReal anotherDec) {
+
+	num = anotherDec.num;
+	return *this;
+}
