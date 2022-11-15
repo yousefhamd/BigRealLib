@@ -13,7 +13,7 @@ class BigReal
 
 public:
 	//BigReal(double realNumber = 0.0); // default constructor
-	BigReal(){}
+	BigReal() {}
 	BigReal(string realNumber); // string parametrize constructor
 	BigReal(BigDecimalInt bigInteger); // BigDecimalInt parameterize constructor
 	BigReal(const BigReal& other); // copy constructor
@@ -22,6 +22,13 @@ public:
 	BigReal& operator= (BigReal&& other); // move assignment
 	BigReal operator+ (BigReal& other);
 	BigReal operator- (BigReal& other);
+	BigReal operator=(BigReal anotherDec);
+	bool operator< (BigReal anotherDec);
+	bool operator> (BigReal anotherDec);
+	bool operator== (BigReal anotherDec);
+	char Sign();
+	friend ostream & operator<<(ostream& out, BigReal& b);
+	
 	string getNumber() {
 		return num.getNumber();
 	}
