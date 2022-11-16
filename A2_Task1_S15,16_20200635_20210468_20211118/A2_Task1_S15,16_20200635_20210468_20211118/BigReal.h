@@ -24,12 +24,14 @@ public:
 	BigReal operator+ (BigReal& other);
 	BigReal operator- (BigReal& other);
 	BigReal operator=(BigReal anotherDec);
-	bool operator< (BigReal anotherDec);
-	bool operator> (BigReal anotherDec);
-	bool operator== (BigReal anotherDec);
+	bool operator< (BigReal& anotherDec);
+	bool operator> (BigReal& anotherDec);
+	bool operator== (BigReal& anotherDec);
 	char Sign();
-	friend ostream & operator<<(ostream& out, BigReal& b);
-	
+	int size();
+	friend ostream& operator<<(ostream& out, BigReal& b);
+	friend istream& operator>>(istream& input, BigReal& b);
+
 	string getNumber() {
 		return num.getNumber();
 	}
