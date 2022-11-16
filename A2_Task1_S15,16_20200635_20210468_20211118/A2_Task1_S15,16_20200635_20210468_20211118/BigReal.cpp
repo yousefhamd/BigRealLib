@@ -128,22 +128,132 @@ BigReal BigReal::operator- (BigReal& other) {
 	tmp.insert(tmp.end() - PositionPoint, '.');
 	return BigReal(tmp);
 }
-/*
- bool BigReal:: operator< (BigReal anotherDec)
-{
 
+ bool BigReal:: operator< (BigReal& anotherDec)
+{
+	 string comp1 = "", comp2 = "";
+	 string fraq1=realPart,fraq2=anotherDec.realPart;
+	 long long len1 = intPart.length(), len2 = anotherDec.intPart.length();
+	 long long len3 = realPart.length(), len4 = anotherDec.realPart.length();
+	 if (intPart == anotherDec.intPart)
+	 {
+		 while (len3 < len4) {
+			 fraq1 += '0';
+			 len3++;
+		 }
+		 while (len4 < len3) {
+			 fraq2 += '0';
+			 len4++;
+		 }
+		 if (fraq1 < fraq2) {
+			 return true;
+		 }
+		 else {
+			 return false;
+		 }
+	 }
+
+	 else
+	 {
+		 while (len1 < len2) {
+			 comp1 += '0';
+			 len1++;
+		 }
+		 while (len2 < len1) {
+			 comp2 += '0';
+			 len2++;
+		 }
+		 comp1 += intPart;
+		 comp2 += anotherDec.intPart;
+
+		 if (intPart[0] == '-' && anotherDec.intPart[0] != '-')
+		 {
+			 return true;
+		 }
+		 else if (intPart[0] != '-' && anotherDec.intPart[0] == '-')
+		 {
+			 return false;
+		 }
+		 else if (intPart[0] != '-' && anotherDec.intPart[0] != '-')
+		 {
+			 return comp1 < comp2;
+		 }
+		 else
+		 {
+			 return comp1 > comp2;
+		 }
+	 }	
 }
 
-bool BigReal:: operator> (BigReal anotherDec)
-{
-
-}
  
-bool BigReal:: operator== (BigReal anotherDec)
+ 
+bool BigReal:: operator> (BigReal& anotherDec)
 {
+	string comp1 = "", comp2 = "";
+	string fraq1 = realPart, fraq2 = anotherDec.realPart;
+	long long len1 = intPart.length(), len2 = anotherDec.intPart.length();
+	long long len3 = realPart.length(), len4 = anotherDec.realPart.length();
+	if (intPart == anotherDec.intPart)
+	{
+		while (len3 < len4) {
+			fraq1 += '0';
+			len3++;
+		}
+		while (len4 < len3) {
+			fraq2 += '0';
+			len4++;
+		}
+		if (fraq1 > fraq2) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else
+	{
+		while (len1 < len2) {
+			comp1 += '0';
+			len1++;
+		}
+		while (len2 < len1) {
+			comp2 += '0';
+			len2++;
+		}
+		comp1 += intPart;
+		comp2 += anotherDec.intPart;
 
+		if (intPart[0] == '-' && anotherDec.intPart[0] != '-')
+		{
+			return false;
+		}
+		else if (intPart[0] != '-' && anotherDec.intPart[0] == '-')
+		{
+			return true;
+		}
+		else if (intPart[0] != '-' && anotherDec.intPart[0] != '-')
+		{
+			return comp1 > comp2;
+		}
+		else
+		{
+			return comp1 < comp2;
+		}
+	}
 }
-*/
+
+bool BigReal:: operator== (BigReal& anotherDec)
+{
+	if (intPart == anotherDec.intPart && realPart == anotherDec.realPart)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 char BigReal::Sign() {
 	if (num.sign() == 1) {
 		return '+';
@@ -151,14 +261,26 @@ char BigReal::Sign() {
 	else { return '-'; }
 }
 
+int BigReal::size()
+{
+	return (intPart.size()+realPart.size());
+}
 
 ostream& operator<<(ostream& out, BigReal& b) {
-	out << b.num;
+	//out <<b.intPart<<'.' << b.realPart;
+	out << b.bigReal;
 	return out;
+}
+
+istream& operator>>(istream& input, BigReal& b) {
+	input >> b.bigReal;
+	return input;
 }
 
 BigReal BigReal:: operator=(BigReal anotherDec) {
 
-	num = anotherDec.num;
+	intPart = anotherDec.intPart;
+	realPart = anotherDec.realPart;
+
 	return *this;
 }
